@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  image: prom/prometheus
+  container_name: prometheus
+  volumes:
+    - ./prometheus/config:/etc/prometheus
+    - ./prometheus/volume:/prometheus
+  
+  ports:
+    - 9090:9090
+  command:
+    - '--web.enable-lifecycle'
+    - '--config.file=/etc/prometheus/prometheus.yml'
+  restart: always
+  networks:
+    - pormnet
+
+networks:
+  pormnet:
+    driver: bridge
