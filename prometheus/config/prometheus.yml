@@ -1,7 +1,7 @@
 global:
   scrape_interval: 2m
   scrape_timeout: 10s
-  evaluation_interval: 
+  evaluation_interval: 2m
 
   external_labels:
     monitor: 'codelab-monitor'
@@ -12,14 +12,11 @@ rule_files:
 
 scrape_configs:
   - job_name: 'scrape_metric'
-    schema: 'http'
+    scheme: 'https'
+    metrics_path: '/actuator/prometheus'
     authorization:
       type: 'Bearer'
       credentials_file: Jwt.txt
-    scrape_interval:
     
-static_configs:
-  - targets: ['localhost:9090', 'localhost:8080']
-    labels:
-      service: 'scrape-data'
-  
+    static_configs:
+      - targets: ['server.gauth.co.kr']
